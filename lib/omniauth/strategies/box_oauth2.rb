@@ -18,9 +18,13 @@ module OmniAuth
       }
       option :check_direct_link_support, false
 
-      def callback_url
-        super.sub('http:', 'http:')
-      end
+  def callback_url
+       if Rails.env.production?
+         super.sub('http:', 'https:')
+       else
+        super
+     end
+       end		       
 
       def request_phase
         super
